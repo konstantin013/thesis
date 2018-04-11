@@ -3,3 +3,5 @@
 *.gz
 books/*
 *.pdf
+content.txt
+issues.txt
