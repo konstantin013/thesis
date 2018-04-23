@@ -3,6 +3,7 @@
 *.log
 *.gz
 books/*
+data/*
 *.pdf
 content.txt
 issues.txt
