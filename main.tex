@@ -1,6 +1,6 @@
 \documentclass{article}
 \usepackage{amssymb,latexsym}
-
+\usepackage[backend=bibtex,style=alphabetic]{biblatex}
 
 %Russian-specific packages
 %--------------------------------------
@@ -21,6 +21,9 @@
 %\hyphenation{ма-те-ма-ти-ка вос-ста-нав-ли-вать}
 %--------------------------------------
 
+%\addbibresource{bibfile.bib}
+
+%\bibliographystyle{alpha}
 
 \begin{document}
 
@@ -34,6 +37,7 @@
 \newpage
 
 
+
 \input{intro}
 
 \input{example}
@@ -44,9 +48,13 @@
 \input{mlf}
 
 
+%\bibliography{bibfile}
+%\addbibresource{Bronvermelding.bib}
+
+
 
 \input{bibliography}
-
+%\printbibliography
 
 
 
