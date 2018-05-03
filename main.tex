@@ -1,6 +1,6 @@
 \documentclass{article}
 \usepackage{amssymb,latexsym}
-\usepackage[backend=bibtex,style=alphabetic]{biblatex}
+%\usepackage[backend=bibtex,style=alphabetic]{biblatex}
 
 %Russian-specific packages
 %--------------------------------------
@@ -9,6 +9,10 @@
 \usepackage[russian]{babel}
 \usepackage{graphicx}
 \usepackage{xpatch}
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+
 
 \xapptocmd{\endtitlepage}{\clearpage\stepcounter{page}}{}{}%
 
