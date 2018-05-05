@@ -1,3 +1,6 @@
+\externaldocument{glm}
+
+
 
 \subsection{Использование теории достоверности в многоуровневых факторах}
 
@@ -73,15 +76,16 @@ $$
 Следующая теорема показывает, как достоверная оценка может быть найдена.
 
 
-\textbf{Теорема} (Бюльмана-Штрауба) \textit{Достоверная оценка для $V_j$ может быть найдена как
-$$
+\textbf{Теорема} (Бюльмана-Штрауба) Достоверная оценка для $V_j$ может быть найдена как
+
+\begin{equation} \label{eq:credib_est}
 \widehat{V}_j = z_j \overline{Y}_j + (1 - z_j) \mu
-$$
-где 
+\end{equation}
+
 $$
 z_j = \frac{w_j}{w_j + \sigma^2/\tau^2}
 $$
-}
+
 
 В \cite{OJ10} приведено доказательство этого факта. 
 
@@ -165,38 +169,43 @@ $$
 То есть мы свели нашу модель к модели Бюльмана-Штрауба. А к ней можно применить теорему Бюльмана-Штрауба. Тогда мы получим следующее:
 
 
-\textbf{Утверждение} \textit{Достоверная оценка для $V_j$ может быть найдена как
-$$
-\widehat{V}_j = \widetilde{z}_j \overline{\widetilde{Y}}_j + (1 - \widetilde{z}_j) \mu
-$$
+\textbf{Утверждение} Достоверная оценка для $V_j$ может быть найдена как
+
+\begin{equation} \label{eq:cred_est_glm}
+	\widehat{V}_j = \widetilde{z}_j \overline{\widetilde{Y}}_j + (1 - \widetilde{z}_j) \mu
+\end{equation}
+
 где 
-$$
+\begin{equation} \label{eq:cred_est_glm_params}
 \widetilde{w}_j = \sum_{it} w_{ijt} \quad
 \overline{\widetilde{Y}}_j = \frac{\sum_{it} \widetilde{w}_{ijt} \widetilde{Y}_{ijt}}{\widetilde{w}_{j}} \quad
 \widetilde{z}_j = \frac{\widetilde{w}_j}{\widetilde{w}_j + \sigma^2/\tau^2}
-$$
-}
+\end{equation}
+
+
 
 \subsubsection{оценка параметров в мультипликативных моделях}
 
 Оценка параметров с учётом видоизменения наблюдаемых переменных почти не отличается от модели Бюльмана-Штрауба.
 
-$$
+\begin{equation} \label{eq:mu_est_glm}
 	\mu = \frac{\sum_{ijt}w_{ijt}Y_{ijt}}{\sum_{ijt}w_{ijt}}
-$$
+\end{equation}
 
 $$
 \widehat{\sigma}^2_j = \frac{1}{n_j - 1} \sum_{it} w_{ijt} (Y_{ijt} - \overline{Y}_{j})^2 
 $$
 комбинируя, получаем 
-$$
+\begin{equation} \label{eq:sigma_est_glm}
 \widehat{\sigma}^2 = \frac{\sum_j(n_j - 1) \widehat{\sigma}^2_j}{\sum_j(n_j - 1)} 
-$$
+\end{equation}
 
-$$
+
+\begin{equation} \label{eq:tau_est_glm}
 \widehat{\tau}^2 = \frac{\sum_t w_{j} (\overline{Y}_j - \overline{Y}) ^ 2 - (J - 1) \widehat{\sigma}^2}
 {w - \sum_j w_j^2 / w} 
-$$
+\end{equation}
+
 
 
 К сожалению, в данном случае о несмещённости данных оценок говорить можно лишь в том случае, когда все коэффиценты $\gamma_i$ точно известны. На практике, это почти невозможно, коэффициенты находятся по максимальному правдоподобию.
@@ -206,8 +215,8 @@ $$
 Как только мы имеем коэффиценты для нашей модели, мы можем оценить $\widehat{U}_j$. А после этого, используя эти оценки для смещений $\widehat{U}_j$, как вектор известных смещений $\xi$, мы можем улучшить модель, заново пересчитав коффициенты. затем опять пересчитать оценки для $\widehat{U}_j$ уже на новых коэффициентах и т.д. Эти несложные рассуждения приводят нас к backfitting алгоритму. Запишем его в итеративном виде.
 \begin{enumerate}
 	\item[0] Первоначально положим $\widehat{U}_j = 1, \forall j$ 
-	\item Используя имеющиеся $\widehat{U}_j$ как вектор известных смещений $\xi$, оцениваем коэффициенты $\gamma_r^i$ обычным для мультипликативной модели образом. 
-	\item Пересчитываем $\widehat{U}_j$ согласно формуле такой-то.
+	\item Используя имеющиеся $\widehat{U}_j$ как вектор известных смещений $\xi$, оцениваем коэффициенты $\gamma_r^i$ обычным для мультипликативной модели образом, описаном в \ref{beta_est}
+	\item Пересчитываем $\widehat{U}_j$ согласно формуле \eqref{eq:cred_est_glm}. Параметры дисперсии оцениваем, по формулам \eqref{eq:tau_est_glm}, \eqref{eq:sigma_est_glm} и если необходимо  \eqref{eq:mu_est_glm} . 
 	\item Возвращаемся к шагу 0.
 \end{enumerate}
 Повторяем шаги 1-4 до сходимости.
