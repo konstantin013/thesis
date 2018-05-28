@@ -4,6 +4,7 @@
 *.gz
 books/*
 data/*
+presentation/data/*
 *.pdf
 content.txt
 issues.txt
